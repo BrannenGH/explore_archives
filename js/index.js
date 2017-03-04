@@ -1,4 +1,5 @@
 var express = require('express');
+const pug = require('pug')
 var app = express();
 
 // `path` is used to create filepaths
@@ -7,35 +8,9 @@ var path = require('path');
 // Check for a port in the ENV before setting one manually
 app.set('port', process.env.PORT || 80);
 
-// Views are written using Jade templates
-app.set('views', path.join(__dirname, 'server/views/'));
-app.set('view engine', 'jade');
 
 // - Create a default title
-app.title = 'Supercharge Your Front-End Workflow';
-
-// - To save the hassle of initializing a database, hard code some blog entries
-app.blogs = [
-  {
-    title: 'Keffiyeh raw denim sustainable',
-    image: '/img/blog-image01.jpg',
-    excerpt: 'Cray four loko gentrify, High Life Echo Park disrupt ' +
-             'paleo Shoreditch Neutra put a bird on it tilde occupy ' +
-             'cardigan wolf keytar. Artisan YOLO trust fund meditation ' +
-             'literally PBR.',
-    permalink: '/blog/post-one/'
-  },
-  {
-    title: 'Intelligentsia wayfarers iPhone',
-    image: '/img/blog-image02.jpg',
-    excerpt: 'Gluten-free trust fund sartorial pork belly literally. ' +
-             'Yr hoodie swag, cornhole salvia gastropub locavore next ' +
-             'level iPhone fingerstache. PBR&B disrupt High Life, ' +
-             'locavore drinking vinegar meggings mlkshk 3 wolf moon.',
-    permalink: '/blog/post-two/'
-  },
-  {
-    title: 'Art party Brooklyn listicle',
+app.title = 'The Immigration History Research Archives at the University of Minnesota';
 
 // The default route loads the home page.
 app.get('/', function( req, res ) {
