@@ -1,0 +1,24 @@
+{
+  "name": "explore_archives",
+  "version": "0.0.1",
+  "description": "A web app to take information in text documents and serve it nicely",
+  "main": "js/index.js",
+  "dependencies": {
+    "express": "^4.15.0"
+  },
+  "private": true,
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrannenGHall/explore_archives.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BrannenGHall/explore_archives/issues"
+  },
+  "homepage": "https://github.com/BrannenGHall/explore_archives#readme"
+}
