@@ -1,16 +1,22 @@
 var express = require('express');
-const pug = require('pug')
 var app = express();
+// In theory, connect to DB and load variables from JSON type
+var dbinfo = require('../dummydata/dbinfo.json')
+testing = true;
 
-// `path` is used to create filepaths
+
+
+
 var path = require('path');
 
-// Check for a port in the ENV before setting one manually
-app.set('port', process.env.PORT || 80);
-
+if (testing == true){
+  app.set('port', process.env.PORT || 6000);
+} else {
+  app.set('port', process.env.PORT || 80);
+}
 
 // - Create a default title
-app.title = 'The Immigration History Research Archives at the University of Minnesota';
+app.title = dbinfo.title;
 
 // The default route loads the home page.
 app.get('/', function( req, res ) {
@@ -87,7 +93,7 @@ app.use(function(req, res, next) {
   res.status(404).send("The page you requested doesn't exist.");
 });
 
-// Start the app on port 3000
+// Start the app on port 80
 var server = app.listen(app.get('port'), function(  ) {
   console.log('App started and listening on port %s', server.address().port);
 });
