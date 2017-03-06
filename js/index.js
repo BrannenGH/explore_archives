@@ -4,9 +4,6 @@ var app = express();
 var dbinfo = require('../dummydata/dbinfo.json')
 testing = true;
 
-
-
-
 var path = require('path');
 
 if (testing == true){
@@ -20,29 +17,12 @@ app.title = dbinfo.title;
 
 // The default route loads the home page.
 app.get('/', function( req, res ) {
-  res.render('index', { title: app.title, blogs: app.blogs });
+  res.render('index', { title: app.title});
 });
 
 // To keep things simple, sub-pages are required to be letters only.
 app.get('/(([a-z]+))/', function( req, res) {
-
-  // - Store the page name from the URL
-  var page = req.params[0];
-
-  // - Create a capitalized version of the page for the title
-  var title = page.charAt(0).toUpperCase() + page.slice(1) + ' | ' + app.title;
-
-  // - Create a hash of variables to send to the template
-  var templateVars = {
-    title: title // - The title is required for all templates
-  };
-
-  // - For the blog page, add the blog posts to the template variables
-  if (page==='blog') {
-    templateVars.blogs = app.blogs;
-  }
-
-  // - Render the template
+  // get information form mongoDB and load into pages
   res.render(page, templateVars, function (err, html) {
     if (err) {
       //   - If the template doesn't exist, send a 404
