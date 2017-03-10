@@ -14,6 +14,7 @@ if (testing == true){
 
 // - Create a default title
 app.title = dbinfo.title;
+console.log("Server is running with title %s", dbinfo.title);
 
 // The default route loads the home page.
 app.get('/', function( req, res ) {
