@@ -1,8 +1,12 @@
 var express = require('express');
 var app = express();
+var fs = require('fs');
 // In theory, connect to DB and load variables from JSON type
 var dbinfo = require('../dummydata/dbinfo.json');
-var static_sites = require(./generate_static.js);
+if (testing == true || !fs.existsSync(../html/foot.html) || !fs.existsSync(../html/head.html)){
+  var static_sites = require(./generate_static.js);
+  generate_static.generate();
+}
 testing = true;
 
 var path = require('path');
