@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 // In theory, connect to DB and load variables from JSON type
-var dbinfo = require('../dummydata/dbinfo.json')
+var dbinfo = require('../dummydata/dbinfo.json');
+var static_sites = require(./generate_static.js);
 testing = true;
 
 var path = require('path');
@@ -15,50 +16,6 @@ if (testing == true){
 // - Create a default title
 app.title = dbinfo.title;
 console.log("Server is running with title %s", dbinfo.title);
-
-// The default route loads the home page.
-app.get('/', function( req, res ) {
-  res.render('index', { title: app.title});
-});
-
-// To keep things simple, sub-pages are required to be letters only.
-app.get('/(([a-z]+))/', function( req, res) {
-  // get information form mongoDB and load into pages
-  res.render(page, templateVars, function (err, html) {
-    if (err) {
-      //   - If the template doesn't exist, send a 404
-      res.redirect('/404/');
-    } else {
-      //   - Otherwise, render the template as expected
-      res.end(html);
-    }
-  });
-});
-
-// For blog posts, we use the slug to identify the post.
-// However, to keep this app front-end only, we're using hard-coded content.
-app.get('/blog/:slug/', function( req, res ) {
-
-  var slug = req.params.slug,
-      post = {};
-
-  // - Loop through the blog posts to find the one matching the slug
-  app.blogs.some(function( blog ) {
-    var permalink = '/blog/' + slug + '/';
-    if (blog.permalink===permalink) {
-      post = blog;
-    }
-  });
-
-  res.render('single', post, function( err, html) {
-    if (err) {
-      res.redirect('/404/');
-    } else {
-      res.end(html);
-    }
-  });
-
-});
 
 // Static files are all stored in the `public` dir
 app.use(express.static(path.join(__dirname, 'public')));
