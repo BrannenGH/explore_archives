@@ -5,6 +5,8 @@ import * as express from 'express';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
 
+declare var __dirname;
+
 class Server{
   public app : express.Application;
 
@@ -20,10 +22,10 @@ class Server{
   public config() {
     this.app.use(express.static(path.join(__dirname, "public")));
 
-    this.app.set('port', process.env.PORT || 80);
+    this.app.set('port', this.app.process.env.PORT || 80);
 
     this.app.listen(this.app.get('port'), function() {
-      console.log('App started and listening on port %s', server.address().port);
+      console.log('App started and listening on port %s', this.app.server.address().port);
     });
 
     this.app.use(function(err:any, req: express.Request, res: express.Response, next: express.NextFunction) {

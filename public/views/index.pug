@@ -1,0 +1,35 @@
+head
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  script(src='node_modules/core-js/client/shim.min.js')
+  script(src='node_modules/zone.js/dist/zone.js')
+  script(src='node_modules/reflect-metadata/Reflect.js')
+  script(src='node_modules/systemjs/dist/system.src.js')
+  script(src='../config/system-config.js')
+  script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js')
+  script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+  script(type='text/javascript', src='http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+  link(href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css', rel='stylesheet', type='text/css')
+  link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', text='text/css')
+  link(href='../css/main.css', rel='stylesheet', type='text/css')
+header
+  .section
+    .container
+      .row
+        .col-lg
+          ul.nav.nav-tabs
+            li.active
+              a(href='#') Home
+            li.dropdown
+              a.dropdown-toggle(data-toggle='dropdown', href='#') Documents
+              ul.dropdown-menu
+                li
+                  a(href='#featured') Featured Documents
+                li
+                  a(href='#all') All Documents
+            li
+              a(href='#visiting') Visiting
+body
+  .section
+    .container
+      p INTRODUCTION CONTENT

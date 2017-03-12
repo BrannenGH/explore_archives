@@ -12,7 +12,8 @@
     "@angular/http": "^2.0.0",
     "@angular/platform-browser": "^2.0.0",
     "mongoose": "^3.8.*",
-    "path": "*"
+    "path": "*",
+    "systemjs": "*"
   },
   "private": true,
   "devDependencies": {
