@@ -4,12 +4,27 @@
   "description": "A web app to take information in text documents and serve it nicely",
   "main": "js/index.js",
   "dependencies": {
-    "express": "^4.15.0"
+    "express": "^4.15.0",
+    "@angular/common": "^2.0.0",
+    "@angular/compiler": "^2.0.0",
+    "@angular/core": "^2.0.0",
+    "@angular/forms": "^2.0.0",
+    "@angular/http": "^2.0.0",
+    "@angular/platform-browser": "^2.0.0",
+    "mongoose": "^3.8.*",
+    "path": "*"
   },
   "private": true,
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/core-js": "^0.9.34",
+    "@types/node": "^6.0.41",
+    "concurrently": "2.2.0",
+    "lite-server": "2.2.2",
+    "rimraf": "2.5.4",
+    "typescript": "2.0.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tcs && ./app/server.js"
   },
   "repository": {
     "type": "git",
