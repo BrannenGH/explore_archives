@@ -2,14 +2,27 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 // In theory, connect to DB and load variables from JSON type
-var dbinfo = require('../dummydata/dbinfo.json');
-if (testing == true || !fs.existsSync(../html/foot.html) || !fs.existsSync(../html/head.html)){
-  var static_sites = require(./generate_static.js);
-  generate_static.generate();
-}
-testing = true;
+//var metadata = require('../metadata.json');
+fs.readdir("../html/", function(err,files){
+  files.forEach(function(file) {
+    fs.readFile('../html/' + file, "utf-8")
+  })
+})
+var head = fs.readFile("../html/head", "utf-8", function(err, data){
+  if (err) throw err;
+});
+//var foot = fs.readFile("../html/foot", "utf-8", function(err, data){
+//  if (err) throw err;
+//});
+var testing = true;
+var html = require('path');
+html.dirname('../html/');
 
-var path = require('path');
+injectMetadata(metadata, html){
+  var parsed_metadata = "";
+  for
+  var new_html = html.replace("\uF8FF", parsed_metadata);
+}
 
 if (testing == true){
   app.set('port', process.env.PORT || 6000);
@@ -17,12 +30,15 @@ if (testing == true){
   app.set('port', process.env.PORT || 80);
 }
 
-// - Create a default title
-app.title = dbinfo.title;
-console.log("Server is running with title %s", dbinfo.title);
+app.get('/', function(req,res) {
+  body = fs.readFile()
+  res.send('<html>'+ head + "<body>" + nav + "");
+});
+
+// for var in blank, generate app listener
 
 // Static files are all stored in the `public` dir
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
 
 // If something goes wrong with the server, send a simple message
 app.use(function(err, req, res, next) {
