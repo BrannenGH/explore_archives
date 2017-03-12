@@ -4,6 +4,7 @@
 import * as express from 'express';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
+import * as pug from 'pug';
 
 declare var __dirname;
 
@@ -22,7 +23,8 @@ class Server{
   public config() {
     this.app.use(express.static(path.join(__dirname, "public")));
 
-    this.app.set('port', this.app.process.env.PORT || 80);
+    this.app.set('port', 80);
+    this.app.set('view engine', 'pug');
 
     this.app.listen(this.app.get('port'), function() {
       console.log('App started and listening on port %s', this.app.server.address().port);
@@ -36,10 +38,10 @@ class Server{
   }
 }
 
-module Route {
-  export class Index {
-    public index(req: express.Request, res: express.Response, next: express.NextFunction) {
-      res.render("index");
-    }
-  }
-}
+// module Route {
+//   export class Index {
+//     public index(req: express.Request, res: express.Response, next: express.NextFunction) {
+//       res.render("index");
+//     }
+//   }
+// }
