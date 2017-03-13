@@ -1,6 +1,7 @@
 .DS_Store
 node_modules
 *.js
+!src/js/app/start.js
 *.css
 *.html
 data
