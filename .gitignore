@@ -4,3 +4,4 @@ node_modules
 *.css
 *.html
 data
+npm-debug.log
