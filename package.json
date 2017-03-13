@@ -4,9 +4,12 @@
   "description": "A web app to take information in text documents and serve it nicely",
   "main": "app/server.js",
   "dependencies": {
+    "body-parser": "*",
+    "@angular/core": "^4.0.0-rc.3",
     "express": "^4.15.0",
-    "mongoose": "^3.8.*",
-    "path": "*"
+    "mongoose": "^4.4",
+    "path": "*",
+    "mongodb": "^2.2.24"
   },
   "private": true,
   "devDependencies": {
@@ -14,7 +17,7 @@
     "@types/node": "^6.0.41",
     "concurrently": "2.2.0",
     "typescript": "2.0.2",
-    "pug": "*"
+    "pug": "^2.0.0-beta10"
   },
   "scripts": {
     "start": "tcs && ./app/server.js"

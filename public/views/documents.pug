@@ -1,0 +1,28 @@
+extends layout
+
+mixin institution(title,callnumber,society-established,purpose,head,description,alternative-locations)
+  .section
+    .container
+      .row
+        .col-md-6.col-xs-12
+          .container
+            .row
+              .col-xs-2
+                h1 callnumber
+              .col-xs-10
+                h1 title
+          p "Item descripton:" description
+          p "Insitution information:" purpose
+        .col-md-6.col-xs-10.text-left
+          p "Institution head": head
+          p "Date that soceity was established": society-established
+
+block bodyContent
+  body
+    .section
+      .container
+        .row
+          .col-md-12
+            ul.list-group
+              
+        

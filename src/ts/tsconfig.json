@@ -6,6 +6,7 @@
     "node_modules"
   ],
   "compilerOptions": {
-    "target": "ES5"
+    "target": "ES5",
+    "outDir": "../js/"
   }
 }
