@@ -8,22 +8,24 @@ import * as pug from 'pug';
 import * as document from './document'
 
 declare var __dirname;
+console.log(__dirname)
+
 
 class Server{
   public app : express.Application;
 
   //create instance of sever class
   public static start(): Server {
-    return new Server();
+    return new Server;
   }
 
   constructor() {
     this.app = express();
     this.config();
+    this.listen();
   }
   public config() {
     this.app.use(express.static(path.join(__dirname, "public")));
-
     this.app.set('port', 80);
     this.app.set('view engine', 'pug');
 
@@ -36,6 +38,9 @@ class Server{
       err.status(404).send('ERROR — The site administrators have been notified');
       next(err);
     });
+  }
+  public listen() {
+
   }
 }
 

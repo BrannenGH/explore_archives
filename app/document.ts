@@ -32,10 +32,10 @@ export module DocumentStructure{
 
 class DocumentHandler {
   constructor(key:DocumentStructure.Key){
-    this.readfromdb(key);
+    this.read(key);
   }
 
-  readfromdb(key:DocumentStructure.Key): DocumentStructure.Institution | DocumentStructure.Memoir {
+  read(key:DocumentStructure.Key): DocumentStructure.Institution | DocumentStructure.Memoir {
     //mongoose code to grab data and read into object
     return;
   }
