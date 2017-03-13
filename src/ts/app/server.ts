@@ -66,7 +66,6 @@ class Database {
     mongoose.connect('mongodb://localhost:30000/');
     this.db = mongoose.connection;
     this.db.on("error", console.error.bind(console, "connection error:"));
-
   }
 
   public initalizedb(){
