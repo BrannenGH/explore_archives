@@ -40,13 +40,16 @@ export class Server{
 
     this.app.use(function(err:any, req: express.Request, res: express.Response, next: express.NextFunction) {
       console.error(err.stack);
-      err.status(404).send('ERROR — The site administrators have been notified');
+      //res.status(404).send('ERROR — The site administrators have been notified');
       next(err);
     });
   }
   public routes() {
       this.app.get("/",function(req,res){
         res.render('index');
+      });
+      this.app.use(function (req,res,next){
+        res.status(404).render("404");
       });
   }
 }

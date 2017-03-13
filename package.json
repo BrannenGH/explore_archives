@@ -20,7 +20,7 @@
     "pug": "^2.0.0-beta10"
   },
   "scripts": {
-    "start": "tcs && ./app/server.js"
+    "start": "tcs ./src/js/ts/* & ./js/start.js"
   },
   "repository": {
     "type": "git",
