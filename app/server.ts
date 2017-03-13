@@ -8,22 +8,30 @@ import * as pug from 'pug';
 
 declare var __dirname;
 
-interface key{
-  archivelocation: string;
-  number: number;
-  callnumber:string;
-}
+module DocumentStructure{
+  interface key{
+    archivelocation: string;
+    number: number;
+    callnumber:string;
+  }
 
-interface document {
-  documenttype: string;
-  title: string;
-  key: key;
-  dateestablished:number;
-  purpose:string;
-  head:string;
-  description:string;
-  alternativelocations:string;
-  feature:string;
+  interface document {
+    title: string;
+    key: key;
+    feature: string;
+    description:string;
+    documentdate:string;
+  }
+
+  interface institution extends document {
+    dateestablished:number;
+    purpose:string;
+    head: string;
+  }
+  interface memoir extends document{
+    firstname:string;
+    lastname:string;
+  }
 }
 
 class Server{
