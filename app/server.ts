@@ -8,6 +8,24 @@ import * as pug from 'pug';
 
 declare var __dirname;
 
+interface key{
+  archivelocation: string;
+  number: number;
+  callnumber:string;
+}
+
+interface document {
+  documenttype: string;
+  title: string;
+  key: key;
+  dateestablished:number;
+  purpose:string;
+  head:string;
+  description:string;
+  alternativelocations:string;
+  feature:string;
+}
+
 class Server{
   public app : express.Application;
 

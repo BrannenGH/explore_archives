@@ -2,7 +2,7 @@
   "name": "explore_archives",
   "version": "0.0.1",
   "description": "A web app to take information in text documents and serve it nicely",
-  "main": "js/index.js",
+  "main": "app/server.js",
   "dependencies": {
     "express": "^4.15.0",
     "mongoose": "^3.8.*",
