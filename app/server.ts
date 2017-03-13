@@ -5,34 +5,9 @@ import * as express from 'express';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
 import * as pug from 'pug';
+import * as db from './document';
 
 declare var __dirname;
-
-module DocumentStructure{
-  interface key{
-    archivelocation: string;
-    number: number;
-    callnumber:string;
-  }
-
-  interface document {
-    title: string;
-    key: key;
-    feature: string;
-    description:string;
-    documentdate:string;
-  }
-
-  interface institution extends document {
-    dateestablished:number;
-    purpose:string;
-    head: string;
-  }
-  interface memoir extends document{
-    firstname:string;
-    lastname:string;
-  }
-}
 
 class Server{
   public app : express.Application;
@@ -62,6 +37,10 @@ class Server{
       next(err);
     });
   }
+}
+
+class Database {
+  
 }
 
 // module Route {
