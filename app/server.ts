@@ -5,7 +5,7 @@ import * as express from 'express';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
 import * as pug from 'pug';
-import * as db from './document';
+import * as document from './document'
 
 declare var __dirname;
 
@@ -40,7 +40,7 @@ class Server{
 }
 
 class Database {
-  
+
 }
 
 // module Route {

@@ -3,7 +3,7 @@
 
 import * as mongoose from "mongoose";
 
-module DocumentStructure{
+export module DocumentStructure{
   export interface Key{
     archivelocation: string;
     number:number;
