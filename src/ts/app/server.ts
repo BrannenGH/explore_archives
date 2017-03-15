@@ -57,9 +57,17 @@ export class Server{
 
 class Database {
   public db : mongoose.connection;
+  public Document : mongoose.Schema;
+  public Key : mongoose.Schema;
 
   constructor() {
     this.connectdb();
+    var Key = new mongoose.Schema({
+      archivelocation: String,
+      number: Number,
+      callnumber: String,
+      keyword: Array
+    });
   }
 
   public connectdb(){
