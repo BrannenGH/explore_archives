@@ -9,8 +9,6 @@ import * as document from './document';
 import * as bodyparser from 'body-parser';
 
 declare var __dirname;
-console.log(__dirname)
-
 
 export class Server{
   public app : express.Application;
@@ -57,17 +55,10 @@ export class Server{
 
 class Database {
   public db : mongoose.connection;
-  public Document : mongoose.Schema;
-  public Key : mongoose.Schema;
+
 
   constructor() {
     this.connectdb();
-    var Key = new mongoose.Schema({
-      archivelocation: String,
-      number: Number,
-      callnumber: String,
-      keyword: Array
-    });
   }
 
   public connectdb(){
@@ -76,7 +67,15 @@ class Database {
     this.db.on("error", console.error.bind(console, "connection error:"));
   }
 
-  public initalizedb(){
-
+  readdb(){
+    //let new document.DocumentHandler;
+    //generate a new document handler
+  }
+  public initializedocuments(){
+    //Handle pagation and things like that
+    //Also keep track of page information - have new page call same function, design to work with any call
+  }
+  public displaydetails(){
+    //Read the database with the key of an object and return a dom with details
   }
 }
