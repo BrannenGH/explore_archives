@@ -4,6 +4,8 @@
   "description": "A web app to take information in text documents and serve it nicely",
   "main": "app/server.js",
   "dependencies": {
+    "react": "15.4.2",
+    "react-dom": "15.4.2",
     "express": "^4.15.0",
     "mongoose": "^4.4",
     "path": "*",
@@ -11,7 +13,6 @@
   },
   "private": true,
   "devDependencies": {
-    "react": "15.4.2",
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.41",
     "concurrently": "2.2.0",

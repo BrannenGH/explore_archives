@@ -86,6 +86,20 @@ class Database {
     //generate a new document handler
   }
   public initializedocuments(){
+    var Key = new mongoose.Schema({
+      documentid: Number,
+      archivelocation: String,
+      number: Number,
+      callnumber: String,
+    });
+    var Document = new mongoose.Schema({
+      title: String,
+      key: mongoose.Schema,
+      feature: String,
+      description: String,
+      //fill with JSON object will all optional parameters
+      other: Object
+    });
     //Handle pagation and things like that
     //Also keep track of page information - have new page call same function, design to work with any call
   }

@@ -4,57 +4,41 @@
 import * as mongoose from "mongoose";
 import * as server from "./server";
 
-export module DocumentStructure{
-  export interface Key{
-    archivelocation: string;
-    number: number;
-    callnumber: string;
-    keyword: any[];
-  }
+export interface document{
+  title: String,
+  key: mongoose.Schema,
+  feature: String,
+  description: String,
+  //fill with JSON object will all optional parameters
+  other: documentproperties
+}
 
-  interface document {
-    title: string;
-    key: Key;
-    feature: string;
-    description:string;
-    documentdate:string;
-  }
+interface documentproperties{
+  "firstname": string,
+  "lastname": string,
+  "date": number,
+  "affiliations": [string]
+}
 
-  export interface Institution extends document {
-    dateestablished:number;
-    purpose:string;
-    head: string;
-  }
-  export interface Memoir extends document{
-    firstname:string;
-    lastname:string;
-  }
-};
-
-class DocumentHandler {
+export class DocumentHandler {
   public Document: mongoose.Schema;
   public Key : mongoose.Schema;
+  documentid : number;
 
-  constructor(key:DocumentStructure.Key){
-    var Key = new mongoose.Schema({
-      archivelocation: String,
-      number: Number,
-      callnumber: String,
-      keyword: Array
-    });
-    var Document = new mongoose.Schema({
-      title: String,
-      key: mongoose.Schema,
-      feature: String,
-      description: String,
-      documentdate: String,
-      //fill with JSON object will all optional parameters
-      other: Object
-    });
-    this.read(key);
+  constructor(documentid:number){
+    return new DocumentHandler(documentid);
   }
 
-  read(key: mongoose.Schema | DocumentStructure.Key) {
+  public documentproperty(jsonkey:string){
+    Server.db.
+  }
+
+  public documentkey(jsonkey:string){
+
+  }
+
+
+  read(documentid:number) {
     //mongoose code to grab data and read into object
     return;
   }
