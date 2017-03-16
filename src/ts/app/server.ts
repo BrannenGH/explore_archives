@@ -6,7 +6,6 @@ import * as path from 'path';
 import * as mongoose from 'mongoose';
 import * as pug from 'pug';
 import * as document from './document';
-import * as bodyparser from 'body-parser';
 
 declare var __dirname;
 
@@ -23,7 +22,7 @@ export class Server{
     this.app = express();
     this.config();
     this.routes();
-    var db = new Database;
+    this.db = Database.start();
   }
   public config() {
     this.app.use(express.static(path.join(__dirname, "../../../public")));
@@ -31,8 +30,6 @@ export class Server{
     this.app.set('port', 3000);
     this.app.set('view engine', 'pug');
     this.app.set('views', path.join(__dirname,"../../../public/views"));
-
-    this.app.use(bodyparser.json());
 
     this.app.listen(this.app.get('port'), function() {
       //console.log('App started and listening on port %s', this.app.get("port"));
@@ -73,6 +70,10 @@ class Database {
 
   constructor() {
     this.connectdb();
+  }
+
+  public static start(){
+    return new Database;
   }
 
   public connectdb(){

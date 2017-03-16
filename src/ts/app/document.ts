@@ -26,11 +26,12 @@ export class DocumentHandler {
   documentid : number;
 
   constructor(documentid:number){
+    var documentid = documentid;
     return new DocumentHandler(documentid);
   }
 
   public documentproperty(jsonkey:string){
-    Server.db.
+    server.db.readproperty(this.documentid);
   }
 
   public documentkey(jsonkey:string){
