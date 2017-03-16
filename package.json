@@ -4,7 +4,6 @@
   "description": "A web app to take information in text documents and serve it nicely",
   "main": "app/server.js",
   "dependencies": {
-    "body-parser": "*",
     "express": "^4.15.0",
     "mongoose": "^4.4",
     "path": "*",
@@ -12,14 +11,7 @@
   },
   "private": true,
   "devDependencies": {
-    "@angular/common": "2.4.6",
-    "@angular/compiler": "2.4.6",
-    "@angular/core": "2.4.6",
-    "@angular/forms": "2.4.6",
-    "@angular/http": "2.4.6",
-    "@angular/platform-browser": "2.4.6",
-    "@angular/platform-browser-dynamic": "2.4.6",
-    "@angular/platform-server": "2.4.6",
+    "react": "15.4.2",
     "@types/core-js": "^0.9.34",
     "@types/node": "^6.0.41",
     "concurrently": "2.2.0",

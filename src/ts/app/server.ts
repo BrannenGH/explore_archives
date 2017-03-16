@@ -12,6 +12,7 @@ declare var __dirname;
 
 export class Server{
   public app : express.Application;
+  public db : Database;
 
   //create instance of sever class
   public static start(): Server {
@@ -22,6 +23,7 @@ export class Server{
     this.app = express();
     this.config();
     this.routes();
+    var db = new Database;
   }
   public config() {
     this.app.use(express.static(path.join(__dirname, "../../../public")));
@@ -46,16 +48,28 @@ export class Server{
       this.app.get("/",function(req,res){
         res.render('index');
       });
+      this.app.get("/documents",function(req,res){
+        this.db.initializedocuments();
+      });
+      this.app.get("/documents/:key",function(req,res){
+        this.db.displaydetails();
+      });
+      this.app.get("/documents/limit/:keywords",function(req,res){
+
+      });
+      this.app.get("/about",function(req,res){
+        res.render('about');
+      });
       this.app.use(function (req,res,next){
         res.status(404).render("404");
       });
+
   }
 }
 
 
 class Database {
   public db : mongoose.connection;
-
 
   constructor() {
     this.connectdb();
@@ -67,7 +81,7 @@ class Database {
     this.db.on("error", console.error.bind(console, "connection error:"));
   }
 
-  readdb(){
+  readdb(identifier: String){
     //let new document.DocumentHandler;
     //generate a new document handler
   }
