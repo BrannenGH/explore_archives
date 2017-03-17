@@ -1,8 +1,3 @@
 .DS_Store
 node_modules
-*.js
-!src/js/start.js
-*.css
-*.html
-data
 npm-debug.log
