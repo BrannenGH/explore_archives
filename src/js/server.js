@@ -63,18 +63,12 @@ var Database = (function () {
     Database.prototype.readdb = function (identifier) {
     };
     Database.prototype.initializedocuments = function () {
-        var Key = new mongoose.Schema({
-            documentid: Number,
-            archivelocation: String,
-            number: Number,
-            callnumber: String,
-        });
         var Document = new mongoose.Schema({
-            title: String,
-            key: mongoose.Schema,
-            feature: String,
-            description: String,
-            other: Object
+            archivelocation: String,
+            callnumber: String,
+            docnumber: Number,
+            feature: Number,
+            properties: Object
         });
     };
     Database.prototype.displaydetails = function () {
