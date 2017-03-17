@@ -3,4 +3,4 @@
 
 import * as server from "./server";
 
-var app = server.Server.start().app;
+export var RunningServer = server.Server.start().app;

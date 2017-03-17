@@ -2,7 +2,7 @@
 "use strict";
 
 import * as mongoose from "mongoose";
-import * as server from "./server";
+import * as start from "./start";
 
 export interface document{
   title: String,
@@ -31,10 +31,11 @@ export class DocumentHandler {
   }
 
   public documentproperty(jsonkey:string){
-    server.db.readproperty(this.documentid);
+    var document = start.RunningServer.db.readproperty(this.documentid);
   }
 
   public documentkey(jsonkey:string){
+    var key = start.RunningServer.db.readkey(this.documentid);
 
   }
 
