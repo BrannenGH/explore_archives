@@ -33,7 +33,7 @@ var Server = (function () {
         this.app.get("/documents", function (req, res) {
             this.db.initializedocuments();
         });
-        this.app.get("/documents/:key", function (req, res) {
+        this.app.get("/documents/:documentid", function (req, res) {
             this.db.displaydetails();
         });
         this.app.get("/documents/limit/:keywords", function (req, res) {
@@ -58,20 +58,31 @@ var Database = (function () {
     Database.prototype.connectdb = function () {
         mongoose.connect('mongodb://localhost:30000/');
         this.db = mongoose.connection;
+        this.db.use("explore_archives");
         this.db.on("error", console.error.bind(console, "connection error:"));
     };
-    Database.prototype.readdb = function (identifier) {
-    };
-    Database.prototype.initializedocuments = function () {
-        var Document = new mongoose.Schema({
+    Database.prototype.documentlist = function () {
+        var DocumentSchema = new mongoose.Schema({
             archivelocation: String,
             callnumber: String,
             docnumber: Number,
             feature: Number,
-            properties: Object
+            date: Date,
+            properties: mongoose.Schema.Types.Mixed
+        });
+        var Document = mongoose.model('Document', DocumentSchema);
+        loaddocuments(startingpoint);
+    };
+    Database.prototype.readproperty = function (documentid) {
+    };
+    Database.prototype.readkey = function (documentid) {
+        this.Document.findOne({ "_id": documentid }, 'archivelocation callnumber docnumber feature date', function (err, docuemnt) {
+            if (err)
+                return this.handleerror(err);
         });
     };
-    Database.prototype.displaydetails = function () {
+    Database.prototype.handleerror = function (error) {
+        console.log("Error in database: %s", error);
     };
     return Database;
 }());

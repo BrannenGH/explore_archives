@@ -48,11 +48,11 @@ export class Server{
       this.app.get("/documents",function(req,res){
         this.db.initializedocuments();
       });
-      this.app.get("/documents/:key",function(req,res){
+      this.app.get("/documents/:documentid",function(req,res){
         this.db.displaydetails();
       });
       this.app.get("/documents/limit/:keywords",function(req,res){
-
+          //Apply properties of doucments that only match
       });
       this.app.get("/about",function(req,res){
         res.render('about');
@@ -67,6 +67,7 @@ export class Server{
 
 class Database {
   public db : mongoose.connection;
+  public Document: mongoose.model;
 
   constructor() {
     this.connectdb();
@@ -79,26 +80,34 @@ class Database {
   public connectdb(){
     mongoose.connect('mongodb://localhost:30000/');
     this.db = mongoose.connection;
+    this.db.use("explore_archives");
     this.db.on("error", console.error.bind(console, "connection error:"));
   }
 
-  readdb(identifier: String){
-    //let new document.DocumentHandler;
-    //generate a new document handler
-  }
-  public initializedocuments(){
-    var Document = new mongoose.Schema({
+  public documentlist(){
+    var DocumentSchema = new mongoose.Schema({
       archivelocation: String,
       callnumber: String,
       docnumber: Number,
       feature: Number,
+      date: Date,
       //fill with JSON object will all optional parameters
-      properties: Object
+      properties: mongoose.Schema.Types.Mixed
     });
+    var Document = mongoose.model('Document', DocumentSchema);
+    loaddocuments(startingpoint)
     //Handle pagation and things like that
     //Also keep track of page information - have new page call same function, design to work with any call
   }
-  public displaydetails(){
+  public readproperty(documentid){
     //Read the database with the key of an object and return a dom with details
+  }
+  public readkey(documentid){
+    this.Document.findOne({"_id": documentid}, 'archivelocation callnumber docnumber feature date', function (err, docuemnt){
+      if (err) return this.handleerror(err);
+    });
+  }
+  public handleerror(error){
+    console.log("Error in database: %s", error);
   }
 }
