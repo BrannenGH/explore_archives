@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var start = require("./start");
 var DocumentHandler = (function () {
-    function DocumentHandler(documentid) {
+    function DocumentHandler(documentid, property, key) {
         var documentid = documentid;
-        var properties = start.RunningServer.db.readproperty(documentid);
-        var key = start.RunningServer.db.readkey(documentid);
-        return new DocumentHandler(documentid);
+        var property = property;
+        var key = key;
     }
     return DocumentHandler;
 }());

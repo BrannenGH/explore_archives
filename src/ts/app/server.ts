@@ -95,22 +95,25 @@ class Database {
     var Document = mongoose.model('Document', DocumentSchema);
   }
 
-  public documentlist(page:number, old_documenthandlers?:any[]){
+  public documentlist(page:number){
     var perpage = 10;
-    return this.Document.sort('relevance featured docnumber').limit(page*perpage).sort('-relevance -featured -docnumber').limit(perpage).exec(function (err,document){
-      for (var i = 0; i < 10; i++){
-
-        this.returnjson(err,document);
-      }
-    });
-
-
-    //Also keep track of page information - have new page call same function, design to work with any call
-    //develop a set of
-    //Want to return 10 DocumentHandlers for the webpage
+    return this.Document.sort('relevance featured docnumber').
+    limit(page*perpage).sort('-relevance -featured -docnumber').
+    limit(perpage).sort('relevance featured docnumber').lean().distinct('_id');
   }
 
-
+  public createdocuments(documentid){
+    if (isNaN(documentid)){
+      var currentdocumenthander = [];
+      for (var i = 0; i < documentid.legnth; i++){
+        currentdocumenthander.push(new document.DocumentHandler(documentid[i], this.readproperty(documentid[i]), this.readkey(documentid[i])));
+      }
+      return currentdocumenthander;
+    }else{
+      var currentdocumenthandler = new document.DocumentHandler(documentid, this.readproperty(documentid), this.readkey(documentid));
+      return currentdocumenthandler;
+    }
+  }
   returnjson(err,document){
     var values: JSON;
     if (err) return this.handleerror(err);
@@ -118,10 +121,10 @@ class Database {
     console.log(values);
     return values;
   }
-  public readproperty(documentid){
+  readproperty(documentid){
     return this.Document.findOne({"_id": documentid}, 'property', function (err,document){this.returnjson(err,document)});
   }
-  public readkey(documentid){
+  readkey(documentid){
     return this.Document.findOne({"_id": documentid}, 'archivelocation callnumber docnumber feature date', function (err,document){this.returnjson(err,document)});
   }
   public handleerror(error){

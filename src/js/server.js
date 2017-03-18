@@ -4,6 +4,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var path = require("path");
 var mongoose = require("mongoose");
+var document = require("./document");
 var Server = (function () {
     function Server() {
         this.app = express();
@@ -71,13 +72,24 @@ var Database = (function () {
         });
         var Document = mongoose.model('Document', DocumentSchema);
     };
-    Database.prototype.documentlist = function (page, old_documenthandlers) {
+    Database.prototype.documentlist = function (page) {
         var perpage = 10;
-        return this.Document.sort('relevance featured docnumber').limit(page * perpage).sort('-relevance -featured -docnumber').limit(perpage).exec(function (err, document) {
-            for (var i = 0; i < 10; i++) {
-                this.returnjson(err, document);
+        return this.Document.sort('relevance featured docnumber').
+            limit(page * perpage).sort('-relevance -featured -docnumber').
+            limit(perpage).sort('relevance featured docnumber').lean().distinct('_id');
+    };
+    Database.prototype.createdocuments = function (documentid) {
+        if (isNaN(documentid)) {
+            var currentdocumenthander = [];
+            for (var i = 0; i < documentid.legnth; i++) {
+                currentdocumenthander.push(new document.DocumentHandler(documentid[i], this.readproperty(documentid[i]), this.readkey(documentid[i])));
             }
-        });
+            return currentdocumenthander;
+        }
+        else {
+            var currentdocumenthandler = new document.DocumentHandler(documentid, this.readproperty(documentid), this.readkey(documentid));
+            return currentdocumenthandler;
+        }
     };
     Database.prototype.returnjson = function (err, document) {
         var values;
