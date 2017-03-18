@@ -60,26 +60,38 @@ var Database = (function () {
         this.db = mongoose.connection;
         this.db.use("explore_archives");
         this.db.on("error", console.error.bind(console, "connection error:"));
-    };
-    Database.prototype.documentlist = function () {
         var DocumentSchema = new mongoose.Schema({
             archivelocation: String,
             callnumber: String,
             docnumber: Number,
-            feature: Number,
+            featured: Boolean,
+            relevance: Number,
             date: Date,
             properties: mongoose.Schema.Types.Mixed
         });
         var Document = mongoose.model('Document', DocumentSchema);
-        loaddocuments(startingpoint);
+    };
+    Database.prototype.documentlist = function (page, old_documenthandlers) {
+        var perpage = 10;
+        return this.Document.sort('relevance featured docnumber').limit(page * perpage).sort('-relevance -featured -docnumber').limit(perpage).exec(function (err, document) {
+            for (var i = 0; i < 10; i++) {
+                this.returnjson(err, document);
+            }
+        });
+    };
+    Database.prototype.returnjson = function (err, document) {
+        var values;
+        if (err)
+            return this.handleerror(err);
+        values = JSON.parse(document);
+        console.log(values);
+        return values;
     };
     Database.prototype.readproperty = function (documentid) {
+        return this.Document.findOne({ "_id": documentid }, 'property', function (err, document) { this.returnjson(err, document); });
     };
     Database.prototype.readkey = function (documentid) {
-        this.Document.findOne({ "_id": documentid }, 'archivelocation callnumber docnumber feature date', function (err, docuemnt) {
-            if (err)
-                return this.handleerror(err);
-        });
+        return this.Document.findOne({ "_id": documentid }, 'archivelocation callnumber docnumber feature date', function (err, document) { this.returnjson(err, document); });
     };
     Database.prototype.handleerror = function (error) {
         console.log("Error in database: %s", error);

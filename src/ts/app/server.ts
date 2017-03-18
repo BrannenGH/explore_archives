@@ -82,30 +82,47 @@ class Database {
     this.db = mongoose.connection;
     this.db.use("explore_archives");
     this.db.on("error", console.error.bind(console, "connection error:"));
-  }
-
-  public documentlist(){
     var DocumentSchema = new mongoose.Schema({
       archivelocation: String,
       callnumber: String,
       docnumber: Number,
-      feature: Number,
+      featured: Boolean,
+      relevance: Number,
       date: Date,
       //fill with JSON object will all optional parameters
       properties: mongoose.Schema.Types.Mixed
     });
     var Document = mongoose.model('Document', DocumentSchema);
-    loaddocuments(startingpoint)
-    //Handle pagation and things like that
+  }
+
+  public documentlist(page:number, old_documenthandlers?:any[]){
+    var perpage = 10;
+    return this.Document.sort('relevance featured docnumber').limit(page*perpage).sort('-relevance -featured -docnumber').limit(perpage).exec(function (err,document){
+      for (var i = 0; i < 10; i++){
+
+        this.returnjson(err,document);
+      }
+    });
+
+
     //Also keep track of page information - have new page call same function, design to work with any call
+    //develop a set of
+    //Want to return 10 DocumentHandlers for the webpage
+  }
+
+
+  returnjson(err,document){
+    var values: JSON;
+    if (err) return this.handleerror(err);
+    values = JSON.parse(document);
+    console.log(values);
+    return values;
   }
   public readproperty(documentid){
-    //Read the database with the key of an object and return a dom with details
+    return this.Document.findOne({"_id": documentid}, 'property', function (err,document){this.returnjson(err,document)});
   }
   public readkey(documentid){
-    this.Document.findOne({"_id": documentid}, 'archivelocation callnumber docnumber feature date', function (err, docuemnt){
-      if (err) return this.handleerror(err);
-    });
+    return this.Document.findOne({"_id": documentid}, 'archivelocation callnumber docnumber feature date', function (err,document){this.returnjson(err,document)});
   }
   public handleerror(error){
     console.log("Error in database: %s", error);
