@@ -14,5 +14,12 @@ export class DocumentHandler {
     var property = property;
     var key = key;
   }
+
+  public documentkey(){
+
+  }
+  public documentproperty(){
+    return 
+  }
   //add code to edit objects
 }

@@ -7,6 +7,11 @@ var DocumentHandler = (function () {
         var property = property;
         var key = key;
     }
+    DocumentHandler.prototype.documentkey = function () {
+    };
+    DocumentHandler.prototype.documentproperty = function () {
+        return;
+    };
     return DocumentHandler;
 }());
 exports.DocumentHandler = DocumentHandler;

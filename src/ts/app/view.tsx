@@ -8,7 +8,7 @@ import * as documenthandler from './document';
 class DocumentList extends React.Component{
   documentid: number;
 
-  render(documentids:any[]) {
+  render() {
     var documents = "";
     var i;
     for (i = 0; i < documentids.length; i++){
@@ -28,9 +28,7 @@ class DocumentList extends React.Component{
       </section>
     )
   }
-  documentbasic(documentid: number){
-    var document = new documenthandler.DocumentHandler(documentid);
-
+  documentbasic(){
     return (
       <div class="col-md-6 col-xs-12 list-group-item">
         <div class ="container">

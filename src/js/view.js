@@ -12,13 +12,12 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var documenthandler = require("./document");
 var DocumentList = (function (_super) {
     __extends(DocumentList, _super);
     function DocumentList() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    DocumentList.prototype.render = function (documentids) {
+    DocumentList.prototype.render = function () {
         var documents = "";
         var i;
         for (i = 0; i < documentids.length; i++) {
@@ -30,8 +29,7 @@ var DocumentList = (function (_super) {
                     React.createElement("div", { class: "col-md-12" },
                         React.createElement("ul", { class: "list-group" }))))));
     };
-    DocumentList.prototype.documentbasic = function (documentid) {
-        var document = new documenthandler.DocumentHandler(documentid);
+    DocumentList.prototype.documentbasic = function () {
         return (React.createElement("div", { class: "col-md-6 col-xs-12 list-group-item" },
             React.createElement("div", { class: "container" },
                 React.createElement("div", { class: "row" },
