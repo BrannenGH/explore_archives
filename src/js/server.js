@@ -100,10 +100,10 @@ var Database = (function () {
         return values;
     };
     Database.prototype.readproperty = function (documentid) {
-        return this.Document.findOne({ "_id": documentid }, 'property', function (err, document) { this.returnjson(err, document); });
+        return this.Document.findOne({ "_id": documentid }, 'property', function (err, document) { this.returnjson(err, document.lean()); });
     };
     Database.prototype.readkey = function (documentid) {
-        return this.Document.findOne({ "_id": documentid }, 'archivelocation callnumber docnumber feature date', function (err, document) { this.returnjson(err, document); });
+        return this.Document.findOne({ "_id": documentid }, 'archivelocation callnumber docnumber feature date', function (err, document) { this.returnjson(err, document.lean()); });
     };
     Database.prototype.handleerror = function (error) {
         console.log("Error in database: %s", error);

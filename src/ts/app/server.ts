@@ -122,10 +122,10 @@ class Database {
     return values;
   }
   readproperty(documentid){
-    return this.Document.findOne({"_id": documentid}, 'property', function (err,document){this.returnjson(err,document)});
+    return this.Document.findOne({"_id": documentid}, 'property', function (err,document){this.returnjson(err,document.lean())});
   }
   readkey(documentid){
-    return this.Document.findOne({"_id": documentid}, 'archivelocation callnumber docnumber feature date', function (err,document){this.returnjson(err,document)});
+    return this.Document.findOne({"_id": documentid}, 'archivelocation callnumber docnumber feature date', function (err,document){this.returnjson(err,document.lean())});
   }
   public handleerror(error){
     console.log("Error in database: %s", error);

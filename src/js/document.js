@@ -7,10 +7,11 @@ var DocumentHandler = (function () {
         var property = property;
         var key = key;
     }
-    DocumentHandler.prototype.documentkey = function () {
+    DocumentHandler.prototype.documentkey = function (keyvalue) {
+        return this.key[keyvalue];
     };
-    DocumentHandler.prototype.documentproperty = function () {
-        return;
+    DocumentHandler.prototype.documentproperty = function (keyvalue) {
+        return this.property[keyvalue];
     };
     return DocumentHandler;
 }());

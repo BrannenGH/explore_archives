@@ -12,24 +12,27 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var DocumentList = (function (_super) {
-    __extends(DocumentList, _super);
-    function DocumentList() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var start = require("./start");
+var DocumentView = (function (_super) {
+    __extends(DocumentView, _super);
+    function DocumentView() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.page = 1;
+        return _this;
     }
-    DocumentList.prototype.render = function () {
-        var documents = "";
-        var i;
-        for (i = 0; i < documentids.length; i++) {
-            documents += this.documentbasic(documentids[i]);
+    DocumentView.prototype.render = function () {
+        var domcomponents = '';
+        var documents = start.RunningServer.db.documentlist(this.page);
+        for (var i = 0; i < documents.length; i++) {
+            domcomponents += this.documentbasic(documents[i]);
         }
         return (React.createElement("section", null,
             React.createElement("container", null,
                 React.createElement("row", null,
                     React.createElement("div", { class: "col-md-12" },
-                        React.createElement("ul", { class: "list-group" }))))));
+                        React.createElement("ul", { class: "list-group" }, domcomponents))))));
     };
-    DocumentList.prototype.documentbasic = function () {
+    DocumentView.prototype.documentbasic = function (document) {
         return (React.createElement("div", { class: "col-md-6 col-xs-12 list-group-item" },
             React.createElement("div", { class: "container" },
                 React.createElement("div", { class: "row" },
@@ -44,5 +47,5 @@ var DocumentList = (function (_super) {
                             document.documentproperty("title"),
                             " "))))));
     };
-    return DocumentList;
+    return DocumentView;
 }(React.Component));

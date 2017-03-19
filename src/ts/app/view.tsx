@@ -3,16 +3,16 @@
 
 import * as React from "react";
 import * as ReactDOM from 'react-dom';
+import * as start from "./start";
 import * as documenthandler from './document';
 
-class DocumentList extends React.Component{
-  documentid: number;
-
+class DocumentView extends React.Component{
+  page = 1;
   render() {
-    var documents = "";
-    var i;
-    for (i = 0; i < documentids.length; i++){
-      documents += this.documentbasic(documentids[i]);
+    var domcomponents = '';
+    var documents = start.RunningServer.db.documentlist(this.page);
+    for (var i=0; i < documents.length; i++){
+      domcomponents += this.documentbasic(documents[i]);
     }
     return(
       <section>
@@ -20,7 +20,7 @@ class DocumentList extends React.Component{
           <row>
             <div class="col-md-12">
               <ul class="list-group">
-                {}
+              {domcomponents}
               </ul>
             </div>
           </row>
@@ -28,7 +28,7 @@ class DocumentList extends React.Component{
       </section>
     )
   }
-  documentbasic(){
+  documentbasic(document:documenthandler.DocumentHandler){
     return (
       <div class="col-md-6 col-xs-12 list-group-item">
         <div class ="container">
