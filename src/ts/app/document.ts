@@ -15,11 +15,11 @@ export class DocumentHandler {
     var key = key;
   }
 
-  public documentkey(keyvalue){
-    return this.key[keyvalue];
+  public documentkey(){
+    return this.key;
   }
-  public documentproperty(keyvalue){
-    return this.property[keyvalue];
+  public documentproperty(){
+    return this.property;
   }
   //add code to edit objects
 }

@@ -12,40 +12,25 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var start = require("./start");
-var DocumentView = (function (_super) {
-    __extends(DocumentView, _super);
-    function DocumentView() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.page = 1;
-        return _this;
+var SingleDocument = (function (_super) {
+    __extends(SingleDocument, _super);
+    function SingleDocument() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    DocumentView.prototype.render = function () {
-        var domcomponents = '';
-        var documents = start.RunningServer.db.documentlist(this.page);
-        for (var i = 0; i < documents.length; i++) {
-            domcomponents += this.documentbasic(documents[i]);
-        }
-        return (React.createElement("section", null,
-            React.createElement("container", null,
-                React.createElement("row", null,
-                    React.createElement("div", { class: "col-md-12" },
-                        React.createElement("ul", { class: "list-group" }, domcomponents))))));
-    };
-    DocumentView.prototype.documentbasic = function (document) {
+    SingleDocument.prototype.render = function () {
         return (React.createElement("div", { class: "col-md-6 col-xs-12 list-group-item" },
             React.createElement("div", { class: "container" },
                 React.createElement("div", { class: "row" },
                     React.createElement("div", { class: "col-xs-2" },
                         React.createElement("h1", null,
                             " ",
-                            document.documentkey("callnumber"),
+                            this.props.document.documentkey("callnumber"),
                             " ")),
                     React.createElement("div", { class: "col-xs-10" },
                         React.createElement("h1", null,
                             " ",
-                            document.documentproperty("title"),
+                            this.props.document.documentproperty("title"),
                             " "))))));
     };
-    return DocumentView;
-}(React.Component));
+    return SingleDocument;
+}(React.Component()));
