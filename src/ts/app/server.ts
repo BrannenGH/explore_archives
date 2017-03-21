@@ -96,7 +96,7 @@ class Database {
   }
 
   public connectdb(){
-    mongoose.connect('mongodb://localhost:30000/explore_archives');
+    mongoose.connect('mongodb://localhost:27017/explore_archives/');
     this.db = mongoose.connection;
 //    this.db.use("explore_archives");
     this.db.on("error", console.error.bind(console, "connection error:"));
@@ -106,7 +106,7 @@ class Database {
       docnumber: Number,
       featured: Boolean,
       relevance: Number,
-      date: Date,
+      date: Array,
       //fill with JSON object will all optional parameters
       properties: mongoose.Schema.Types.Mixed
     });

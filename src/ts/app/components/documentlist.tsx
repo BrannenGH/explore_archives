@@ -1,26 +1,31 @@
-#!/usr/bin/env node
-"use strict";
-
-import * as React from "react";
-import * as start from "./start";
+//import * as React from "react";
+//import * as start from "../start";
+//import * as documentholder from "./document";
+//import * as axios from "axios";
 
 
 class DocumentView extends React.Component{
-  props: any[];
-  page: number;
+  page :number;
+  documentstoload: number;
+
   constructor(){
     super();
-    if(isNaN(this.props.page)){
-      var page = page;
-      page = 1;
+    var page = 1;
+    }
+  componentWillMount(page){
+    $.getJSON("http://localhost/api/"+ page,function(result){
+        console.log("API WAS CALLED %s", documents);
+        var documentstoload = result[documents];
+    });
+  }
+
+  htmlgenerate(loadingdocuments){
+    for (var i=0; i<loadingdocuments.length; i++){
+      return this.htmlgenerateindividual(loadingdocuments[i]);
     }
   }
-  componentWillMount(){
-      var domcomponents = '';
-      var documents = start.RunningServer.db.documentlist(this.page);
-      for (var i=0; i < documents.length; i++){
-        domcomponents += this.documentbasic(documents[i]);
-    }
+  htmlgenerateindividual(documentid){
+    return "<div #documentplace documentid='" + documentid + "' />"
   }
 
   render() {
@@ -30,7 +35,7 @@ class DocumentView extends React.Component{
           <row>
             <div class="col-md-12">
               <ul class="list-group">
-              {domcomponents}
+              {this.htmlgenerate(this.documentstoload)}
               </ul>
             </div>
           </row>
@@ -39,3 +44,6 @@ class DocumentView extends React.Component{
     )
   }
 }
+
+
+ReactDOM.render(<DocumentView/>, document.querySelector("#documentview"));

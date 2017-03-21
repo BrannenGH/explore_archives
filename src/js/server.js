@@ -77,7 +77,7 @@ var Database = (function () {
         return new Database;
     };
     Database.prototype.connectdb = function () {
-        mongoose.connect('mongodb://localhost:30000/explore_archives');
+        mongoose.connect('mongodb://localhost:27017/explore_archives/');
         this.db = mongoose.connection;
         this.db.on("error", console.error.bind(console, "connection error:"));
         var DocumentSchema = new mongoose.Schema({
@@ -86,7 +86,7 @@ var Database = (function () {
             docnumber: Number,
             featured: Boolean,
             relevance: Number,
-            date: Date,
+            date: Array,
             properties: mongoose.Schema.Types.Mixed
         });
         var Document = mongoose.model('Document', DocumentSchema);

@@ -10,6 +10,7 @@
     "mongoose": "^4.4",
     "path": "*",
     "body-parser": "*",
+    "axios": "*",
     "mongodb": "^2.2.24"
   },
   "private": true,
