@@ -1,7 +1,24 @@
 extends layout
 
 block bodyContent
-  div
-    div.documentview
-  script(type='text/javascript', src='../components/documentlist.js')
-  script(type='text/javascript', src='../components/document.js')
+  body
+    div
+      div.documentview
+        script(type='text/javascript').
+          function loadDocumentTemplate(){
+            for (i=0; i<return["documents"].length; i++){
+              
+            }
+          $(body).append(<section><container><row><div class="col-md-12"><ul class="list-group">
+                  {this.htmlgenerate(this.documentstoload)}
+                  </ul>
+                </div>
+              </row>
+            </container>
+          </section>
+          }
+          function loadDocument(documentid){
+
+          }
+          $(document).ready(){
+          }
