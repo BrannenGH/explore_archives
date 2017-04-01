@@ -96,7 +96,7 @@ class Database {
   }
 
   public connectdb(){
-    mongoose.connect('mongodb://localhost:27017/explore_archives/');
+    mongoose.connect('mongodb://localhost:27017/explore_archives');
     this.db = mongoose.connection;
 //    this.db.use("explore_archives");
     this.db.on("error", console.error.bind(console, "connection error:"));
@@ -110,11 +110,19 @@ class Database {
       //fill with JSON object will all optional parameters
       properties: mongoose.Schema.Types.Mixed
     });
-    var Document = mongoose.model('Document', DocumentSchema);
+    this.Document = mongoose.model('Document', DocumentSchema);
+    //console.log(this.Document.find(function(err, data){console.log(data);}).sort('odcnumber'));
+    console.log(this.Document.find(function(err, data){console.log(data);}).sort('relevance featured docnumber').
+    limit(10).sort('-relevance -featured -docnumber').
+    limit(10).sort('relevance featured docnumber').lean());//.distinct('_id'));
+    this.db.close();
   }
 
   public documentlist(page:number){
     var perpage = 10;
+    console.log(this.Document.find({}).sort('relevance featured docnumber').
+    limit(page*perpage).sort('-relevance -featured -docnumber').
+    limit(perpage).sort('relevance featured docnumber').lean().distinct('_id'));
     return this.Document.sort('relevance featured docnumber').
     limit(page*perpage).sort('-relevance -featured -docnumber').
     limit(perpage).sort('relevance featured docnumber').lean().distinct('_id');

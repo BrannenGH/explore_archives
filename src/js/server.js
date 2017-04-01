@@ -77,7 +77,7 @@ var Database = (function () {
         return new Database;
     };
     Database.prototype.connectdb = function () {
-        mongoose.connect('mongodb://localhost:27017/explore_archives/');
+        mongoose.connect('mongodb://localhost:27017/explore_archives');
         this.db = mongoose.connection;
         this.db.on("error", console.error.bind(console, "connection error:"));
         var DocumentSchema = new mongoose.Schema({
@@ -89,10 +89,17 @@ var Database = (function () {
             date: Array,
             properties: mongoose.Schema.Types.Mixed
         });
-        var Document = mongoose.model('Document', DocumentSchema);
+        this.Document = mongoose.model('Document', DocumentSchema);
+        console.log(this.Document.find(function (err, data) { console.log(data); }).sort('relevance featured docnumber').
+            limit(10).sort('-relevance -featured -docnumber').
+            limit(10).sort('relevance featured docnumber').lean());
+        this.db.close();
     };
     Database.prototype.documentlist = function (page) {
         var perpage = 10;
+        console.log(this.Document.find({}).sort('relevance featured docnumber').
+            limit(page * perpage).sort('-relevance -featured -docnumber').
+            limit(perpage).sort('relevance featured docnumber').lean().distinct('_id'));
         return this.Document.sort('relevance featured docnumber').
             limit(page * perpage).sort('-relevance -featured -docnumber').
             limit(perpage).sort('relevance featured docnumber').lean().distinct('_id');
