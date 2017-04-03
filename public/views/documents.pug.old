@@ -1,0 +1,46 @@
+extends layout
+
+block bodyContent
+  div.search
+    p.text-center Filtering Content will go here
+  div.documentview
+    .section
+      .container
+        .row
+          .col-md-12.center-block
+            ul.list-group
+              .container
+                .row
+                  .col-md-3
+                  .col-md-6.col-xs-12.list-group-item
+                    .container
+                      .row
+                        .col-xs-2
+                          h2 Text One
+                        .col-xs-10
+                          h2 Text Two
+                          p Information about the product
+                          p more information
+                          p more information
+                .container
+                  .row
+                    .col-md-3
+                    .col-md-6.col-xs-12.list-group-item
+                      .container
+                        .row
+                          .col-xs-2
+                            h2 Text One
+                          .col-xs-10
+                            h2 Text Two
+                  .container
+                    .row
+                      .col-md-3
+                      .col-md-6.col-xs-12.list-group-item
+                        .container
+                          .row
+                            .col-xs-2
+                              h2 Text One
+                            .col-xs-10
+                              h2 Text Two
+
+  //script(type='text/javascript', src='../components/document.js')

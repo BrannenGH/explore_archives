@@ -6,13 +6,16 @@ var path = require("path");
 var mongoose = require("mongoose");
 var document = require("./document");
 var bodyParser = require("body-parser");
+var bluebird = require("bluebird");
 var Server = (function () {
     function Server() {
         this.app = express();
         this.config();
+        this.database = Database.start();
         this.routes();
-        this.db = Database.start();
+        this.app.database = this.database;
     }
+    //create instance of sever class
     Server.start = function () {
         return new Server;
     };
@@ -23,9 +26,11 @@ var Server = (function () {
         this.app.set('views', path.join(__dirname, "../../public/views"));
         this.app.use(bodyParser.json());
         this.app.listen(this.app.get('port'), function () {
+            //console.log('App started and listening on port %s', this.app.get("port"));
         });
         this.app.use(function (err, req, res, next) {
             console.error(err.stack);
+            //res.status(404).send('ERROR — The site administrators have been notified');
             next(err);
         });
     };
@@ -40,27 +45,28 @@ var Server = (function () {
         this.app.get("/about", function (req, res) {
             res.render('about');
         });
-        this.app.get("/api/:page", function (req, res) {
-            var documentids = this.db.documentlist(req.params.page);
-            res.json(documentids);
-            for (var i = 0; documentids.legnth < i; i++) {
-                documenthandlers[documentids[i]] = this.db.createdocuments(documentids[i]);
-            }
-        });
-        this.app.get("/api/:documentid/:type", function (req, res) {
-            var documentid = req.params.documentid;
-            if (!documenthandlers.hasOwnProperty(documentid)) {
-                documenthandlers[documentid] = this.db.createdocuments(documentid);
-            }
-            if (req.params.type == "key") {
-                res.json(documenthandlers[documentid].documentkey());
-            }
-            else if (req.params.type == "property") {
-                res.json(documenthandlers[documentid].documentproperty());
+        this.app.get("/apip/:page/:sorting", function (req, res) {
+            var listofdocuments = { "documents": [] };
+            if (req.params.sorting == "location") {
+                req.app.database.Document.find(null, null, { sort: 'relevance featured docnumber' }, function (err, files) {
+                    for (var i = 0; i < req.params.page * 10; i++) {
+                        listofdocuments["documents"].push(files[i]["_id"]);
+                    }
+                    res.json(listofdocuments);
+                });
             }
             else {
-                console.log("ERROR INVALID REQUEST TYPE");
+                req.app.database.Document.find(null, null, { sort: 'relevance featured docnumber' }, function (err, files) {
+                    for (var i = 0; i < req.params.page * 10; i++) {
+                        listofdocuments["documents"].push(files[i]["_id"]);
+                    }
+                    res.json(listofdocuments);
+                });
             }
+        });
+        this.app.get("/apid/:documentid", function (req, res) {
+            var documentid = req.params.documentid;
+            req.app.database.Document.findOne({ "_id": documentid }, null, function (err, document) { res.json(document); });
         });
         this.app.use(function (req, res, next) {
             res.status(404).render("404");
@@ -77,8 +83,9 @@ var Database = (function () {
         return new Database;
     };
     Database.prototype.connectdb = function () {
-        mongoose.connect('mongodb://localhost:27017/explore_archives/');
+        mongoose.connect('mongodb://localhost:27017/explore_archives');
         this.db = mongoose.connection;
+        //    this.db.use("explore_archives");
         this.db.on("error", console.error.bind(console, "connection error:"));
         var DocumentSchema = new mongoose.Schema({
             archivelocation: String,
@@ -87,15 +94,26 @@ var Database = (function () {
             featured: Boolean,
             relevance: Number,
             date: Array,
+            //fill with JSON object will all optional parameters
             properties: mongoose.Schema.Types.Mixed
         });
-        var Document = mongoose.model('Document', DocumentSchema);
+        this.Document = mongoose.model('Document', DocumentSchema);
+        //console.log(this.Document.find(function(err, data){console.log(data);}).sort('odcnumber'));
+        //console.log(this.Document.find(function(err, data){console.log(data);}).sort('relevance featured docnumber').
+        //limit(10).sort('-relevance -featured -docnumber').
+        //limit(10).sort('relevance featured docnumber').lean());//.distinct('_id'));
+        mongoose.Promise = bluebird;
     };
-    Database.prototype.documentlist = function (page) {
-        var perpage = 10;
-        return this.Document.sort('relevance featured docnumber').
-            limit(page * perpage).sort('-relevance -featured -docnumber').
-            limit(perpage).sort('relevance featured docnumber').lean().distinct('_id');
+    Database.prototype.documentlist = function () {
+        var listofdocuments = { "documents": [] };
+        this.Document.find(null, null, { sort: 'relevance featured docnumber' }, function (err, files) {
+            console.log(this.prototype);
+            for (var i = 0; i < files.length; i++) {
+                listofdocuments["documents"].push(files[i]["_id"]);
+            }
+            console.log(listofdocuments);
+        });
+        return listofdocuments;
     };
     Database.prototype.createdocuments = function (documentid) {
         if (isNaN(documentid)) {

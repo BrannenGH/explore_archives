@@ -8,12 +8,13 @@ import * as pug from 'pug';
 import * as ReactDOM from 'react-dom';
 import * as document from './document';
 import * as bodyParser from 'body-parser';
+import * as bluebird from 'bluebird';
 
 declare var __dirname;
 
 export class Server{
   public app : express.Application;
-  public db : Database;
+  public database : Database;
 
   //create instance of sever class
   public static start(): Server {
@@ -23,8 +24,9 @@ export class Server{
   constructor() {
     this.app = express();
     this.config();
+    this.database = Database.start();
     this.routes();
-    this.db = Database.start();
+    this.app.database = this.database;
   }
   public config() {
     this.app.use(express.static(path.join(__dirname, "../../public")));
@@ -56,25 +58,27 @@ export class Server{
    this.app.get("/about",function(req,res){
       res.render('about');
     });
-    this.app.get("/api/:page",function(req,res){
-      var documentids = this.db.documentlist(req.params.page);
-      res.json(documentids);
-      for (var i=0; documentids.legnth < i; i++ ){
-        documenthandlers[documentids[i]] = this.db.createdocuments(documentids[i]);
+    this.app.get("/apip/:page/:sorting",function(req,res){
+      var listofdocuments = {"documents": []}
+      if (req.params.sorting=="location"){
+        req.app.database.Document.find(null,null,{sort: 'relevance featured docnumber'},function(err,files){
+          for (var i=0;i < req.params.page *10; i++){
+            listofdocuments["documents"].push(files[i]["_id"]);
+          }
+        res.json(listofdocuments);
+       });
+      } else {
+        req.app.database.Document.find(null,null,{sort: 'relevance featured docnumber'},function(err,files){
+          for (var i=0;i < req.params.page *10; i++){
+            listofdocuments["documents"].push(files[i]["_id"]);
+          }
+          res.json(listofdocuments);
+        });
       }
     });
-    this.app.get("/api/:documentid/:type",function(req,res){
+    this.app.get("/apid/:documentid",function(req,res){
       var documentid = req.params.documentid;
-      if (!documenthandlers.hasOwnProperty(documentid)){
-        documenthandlers[documentid] = this.db.createdocuments(documentid);
-      }
-      if (req.params.type == "key"){
-        res.json(documenthandlers[documentid].documentkey());
-      } else if (req.params.type == "property"){
-        res.json(documenthandlers[documentid].documentproperty());
-      } else {
-        console.log("ERROR INVALID REQUEST TYPE");
-      }
+      req.app.database.Document.findOne({"_id": documentid}, null, function (err,document){res.json(document)});
     });
     this.app.use(function (req,res,next){
       res.status(404).render("404");
@@ -86,6 +90,7 @@ export class Server{
 class Database {
   public db : mongoose.connection;
   public Document: mongoose.model;
+  public dummyobject;
 
   constructor() {
     this.connectdb();
@@ -96,7 +101,7 @@ class Database {
   }
 
   public connectdb(){
-    mongoose.connect('mongodb://localhost:27017/explore_archives/');
+    mongoose.connect('mongodb://localhost:27017/explore_archives');
     this.db = mongoose.connection;
 //    this.db.use("explore_archives");
     this.db.on("error", console.error.bind(console, "connection error:"));
@@ -110,14 +115,24 @@ class Database {
       //fill with JSON object will all optional parameters
       properties: mongoose.Schema.Types.Mixed
     });
-    var Document = mongoose.model('Document', DocumentSchema);
+    this.Document = mongoose.model('Document', DocumentSchema);
+    //console.log(this.Document.find(function(err, data){console.log(data);}).sort('odcnumber'));
+    //console.log(this.Document.find(function(err, data){console.log(data);}).sort('relevance featured docnumber').
+    //limit(10).sort('-relevance -featured -docnumber').
+    //limit(10).sort('relevance featured docnumber').lean());//.distinct('_id'));
+    mongoose.Promise = bluebird;
   }
 
-  public documentlist(page:number){
-    var perpage = 10;
-    return this.Document.sort('relevance featured docnumber').
-    limit(page*perpage).sort('-relevance -featured -docnumber').
-    limit(perpage).sort('relevance featured docnumber').lean().distinct('_id');
+  public documentlist(){
+    var listofdocuments = {"documents": []}
+    this.Document.find(null,null,{sort: 'relevance featured docnumber'},function(err,files){
+      console.log(this.prototype);
+      for (var i=0;i < files.length; i++){
+        listofdocuments["documents"].push(files[i]["_id"]);
+      }
+      console.log(listofdocuments);
+    });
+    return listofdocuments;
   }
 
   public createdocuments(documentid){
