@@ -45,19 +45,24 @@ var Server = (function () {
         this.app.get("/about", function (req, res) {
             res.render('about');
         });
-        this.app.get("/apip/:page", function (req, res) {
+        this.app.get("/apip/:page/:sorting", function (req, res) {
             var listofdocuments = { "documents": [] };
-            req.app.database.Document.find(null, null, { sort: 'relevance featured docnumber' }, function (err, files) {
-                for (var i = 0; i < req.params.page * 10; i++) {
-                    listofdocuments["documents"].push(files[i]["_id"]);
-                }
-                res.json(listofdocuments);
-            });
-            //console.log(listofdocuments);
-            //res.json(listofdocuments);
-            //for (var i=0; documentids.legnth < i; i++ ){
-            //  documenthandlers[documentids[i]] = req.app.database.createdocuments(documentids[i]);
-            //}
+            if (req.params.sorting == "location") {
+                req.app.database.Document.find(null, null, { sort: 'relevance featured docnumber' }, function (err, files) {
+                    for (var i = 0; i < req.params.page * 10; i++) {
+                        listofdocuments["documents"].push(files[i]["_id"]);
+                    }
+                    res.json(listofdocuments);
+                });
+            }
+            else {
+                req.app.database.Document.find(null, null, { sort: 'relevance featured docnumber' }, function (err, files) {
+                    for (var i = 0; i < req.params.page * 10; i++) {
+                        listofdocuments["documents"].push(files[i]["_id"]);
+                    }
+                    res.json(listofdocuments);
+                });
+            }
         });
         this.app.get("/apid/:documentid", function (req, res) {
             var documentid = req.params.documentid;
