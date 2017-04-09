@@ -58,6 +58,9 @@ export class Server{
    this.app.get("/about",function(req,res){
       res.render('about');
     });
+    this.app.get("/visiting",function(req,res){
+      res.render('visiting');
+    });
     this.app.get("/apip/:page/:sorting",function(req,res){
       var listofdocuments = {"documents": []}
       if (req.params.sorting=="location"){

@@ -8,7 +8,8 @@ head
   script(type='text/javascript', src='https://unpkg.com/react-dom@15.3.1/dist/react-dom.js')
   link(href='http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css', rel='stylesheet', type='text/css')
   link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', text='text/css')
-  link(href='../css/main.css', rel='stylesheet', type='text/css')
+  link(href='../css/main.less', rel='stylesheet/less', type='text/css')
+  link(href='https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.js' type='text/javascript')
 header
   .navbar.navbar-default
     .container-fluid
@@ -20,32 +21,20 @@ header
         .collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(href='/') Home
-            li.dropdown
-              a.dropdown-toggle(data-toggle='dropdown', href='#') Documents
-              ul.dropdown-menu
-                li
-                  a(href='documents#featured') Featured Documents
-                li
-                  a(href='documents') All Documents
+                img(href="umn.edu" alt="The University of Minnesota" src='../css/MN_logo.png' style='max-width: 60px; margin-top: 10px;')
             li
-              a(href='visiting') Visiting
-  //- .section
-  //-   .container
-  //-     .row
-  //-       .col-lg
-  //-         ul.nav.nav-tabs
-  //-           li
-  //-             a(href='/') Home
-  //-           li.dropdown
-  //-             a.dropdown-toggle(data-toggle='dropdown', href='#') Documents
-  //-             ul.dropdown-menu
-  //-               li
-  //-                 a(href='documents#featured') Featured Documents
-  //-               li
-  //-                 a(href='documents') All Documents
-  //-           li
-  //-             a(href='visiting') Visiting
+              a(href='/') Home
+            li
+              a(href='/documents') Documents
+            //- li.dropdown
+            //-   a.dropdown-toggle(data-toggle='dropdown', href='#') Documents
+            //-   ul.dropdown-menu
+            //-     li
+            //-       a(href='documents#featured') Featured Documents
+            //-     li
+            //-       a(href='documents') All Documents
+            li
+              a(href='/visiting') Visiting
 block bodyContent
   footer
     .section

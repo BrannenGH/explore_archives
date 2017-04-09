@@ -78,15 +78,11 @@ monospace;
 @headings-font-weight : 500;
 @headings-line-height : 1.1;
 @headings-color : inherit;
-//== Iconography
-//
-//## Specify custom location and filename of the included Glyphicons icon font. Useful for those including Bootstrap via Bower.
-//** Load fonts from this directory.
-//@icon-font-path : "../fonts/";
-//** File name for all font files.
-//@icon-font-name : "glyphicons-halflings-regular";
-//** Element ID within SVG icon file.
-//@icon-font-svg-id : "glyphicons_halflingsregular";
+//== Maps
+
+//Section by me for google map style handling
+
+
 //== Components
 //
 //## Define common padding and border radius sizes and more. Values based on 14px text and 1.428 line-height (~20px to start).
@@ -297,54 +293,124 @@ monospace;
 @navbar-padding-horizontal : floor((@grid-gutter-width / 2));
 @navbar-padding-vertical : ((@navbar-height - @line-height-computed) / 2);
 @navbar-collapse-max-height : 340px;
-@navbar-default-color : black;
-@navbar-default-bg : #f8f8f8;
-@navbar-default-border : darken(@navbar-default-bg, 6.5%);
-// Navbar links
-@navbar-default-link-color : contrast(@navbar-default-bg, @text-color, @text-inverse, 43%);
-@navbar-default-link-hover-color : @navbar-default-color;
-@navbar-default-link-hover-bg : transparent;
-@navbar-default-link-active-color : @navbar-default-color;
-@navbar-default-link-active-bg : darken(@navbar-default-bg, 6.5%);
-@navbar-default-link-disabled-color : #ccc;
-@navbar-default-link-disabled-bg : transparent;
-// Navbar brand label
-@navbar-default-brand-color : @navbar-default-link-color;
-@navbar-default-brand-hover-color : darken(@navbar-default-brand-color, 10%);
-@navbar-default-brand-hover-bg : transparent;
-// Navbar toggle
-@navbar-default-toggle-hover-bg : #ddd;
-@navbar-default-toggle-icon-bar-bg : #888;
-@navbar-default-toggle-border-color : #ddd;
-// Inverted navbar
-// Reset inverted navbar basics
-@navbar-inverse-color : lighten(@gray-light, 15%);
-@navbar-inverse-bg : #222;
-@navbar-inverse-border : darken(@navbar-inverse-bg, 10%);
-// Inverted navbar links
-@navbar-inverse-link-color : lighten(@gray-light, 15%);
-@navbar-inverse-link-hover-color : #fff;
-@navbar-inverse-link-hover-bg : transparent;
-@navbar-inverse-link-active-color : @navbar-inverse-link-hover-color;
-@navbar-inverse-link-active-bg : darken(@navbar-inverse-bg, 10%);
-@navbar-inverse-link-disabled-color : #444;
-@navbar-inverse-link-disabled-bg : transparent;
-// Inverted navbar brand label
-@navbar-inverse-brand-color : @navbar-inverse-link-color;
-@navbar-inverse-brand-hover-color : #fff;
-@navbar-inverse-brand-hover-bg : transparent;
-// Inverted navbar toggle
-@navbar-inverse-toggle-hover-bg : #333;
-@navbar-inverse-toggle-icon-bar-bg : #fff;
-@navbar-inverse-toggle-border-color : #333;
+// @navbar-default-color : black;
+// @navbar-default-bg : #FFD36F;
+// @navbar-default-border : darken(@navbar-default-bg, 6.5%);
+// // Navbar links
+// @navbar-default-link-color : contrast(@navbar-default-bg, @text-color, @text-inverse, 43%);
+// @navbar-default-link-hover-color : @navbar-default-color;
+// @navbar-default-link-hover-bg : transparent;
+// @navbar-default-link-active-color : @navbar-default-color;
+// @navbar-default-link-active-bg : darken(@navbar-default-bg, 6.5%);
+// @navbar-default-link-disabled-color : #ccc;
+// @navbar-default-link-disabled-bg : transparent;
+// // Navbar brand label
+// @navbar-default-brand-color : @navbar-default-link-color;
+// @navbar-default-brand-hover-color : darken(@navbar-default-brand-color, 10%);
+// @navbar-default-brand-hover-bg : transparent;
+// // Navbar toggle
+// @navbar-default-toggle-hover-bg : #ddd;
+// @navbar-default-toggle-icon-bar-bg : #888;
+// @navbar-default-toggle-border-color : #ddd;
+// // Inverted navbar
+// // Reset inverted navbar basics
+// @navbar-inverse-color : lighten(@gray-light, 15%);
+// @navbar-inverse-bg : #222;
+// @navbar-inverse-border : darken(@navbar-inverse-bg, 10%);
+// // Inverted navbar links
+// @navbar-inverse-link-color : lighten(@gray-light, 15%);
+// @navbar-inverse-link-hover-color : #fff;
+// @navbar-inverse-link-hover-bg : transparent;
+// @navbar-inverse-link-active-color : @navbar-inverse-link-hover-color;
+// @navbar-inverse-link-active-bg : darken(@navbar-inverse-bg, 10%);
+// @navbar-inverse-link-disabled-color : #444;
+// @navbar-inverse-link-disabled-bg : transparent;
+// // Inverted navbar brand label
+// @navbar-inverse-brand-color : @navbar-inverse-link-color;
+// @navbar-inverse-brand-hover-color : #fff;
+// @navbar-inverse-brand-hover-bg : transparent;
+// // Inverted navbar toggle
+// @navbar-inverse-toggle-hover-bg : #333;
+// @navbar-inverse-toggle-icon-bar-bg : #fff;
+// @navbar-inverse-toggle-border-color : #333;
 //== Navs
 //
 //##
 //=== Shared nav styles
-@nav-link-padding : 10px 15px;
-@nav-link-hover-bg : @gray-lighter;
-@nav-disabled-link-color : @gray-light;
-@nav-disabled-link-hover-color : @gray-light;
+// @nav-link-padding : 10px 15px;
+// @nav-link-hover-bg : @gray-lighter;
+// @nav-disabled-link-color : @gray-light;
+// @nav-disabled-link-hover-color : @gray-light;
+
+@bgDefault      : #ffd36f;
+@bgHighlight    : #000000;
+@colDefault     : #000000;
+@colHighlight   : #ffffff;
+@dropDown       : false;
+.ddm() when (@dropDown) {
+  > li > .dropdown-menu {
+      background-color: @bgDefault;
+      > li {
+        > a {
+          color: @colDefault;
+          &:hover,  &:focus {
+            color: @colHighlight;
+            background-color: @bgHighlight; }}
+        > .divider {
+          background-color: @bgHighlight;}}}
+  .open .dropdown-menu > .active {
+    > a, > a:hover, > a:focus {
+      color: @colHighlight;
+      background-color: @bgHighlight; }}}
+.navbar-default {
+  background-color: @bgDefault;
+  border-color: @bgHighlight;
+  .navbar-brand {
+    color: @colDefault;
+    &:hover, &:focus {
+      color: @colHighlight; }}
+  .navbar-text {
+    color: @colDefault; }
+  .navbar-nav {
+    > li {
+      > a {
+        color: @colDefault;
+        &:hover,  &:focus {
+          color: @colHighlight; }}}
+    .ddm;
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: @colHighlight;
+        background-color: @bgHighlight; }}
+    > .open {
+      > a, > a:hover, > a:focus {
+        color: @colHighlight;
+        background-color: @bgHighlight; }}}
+  .navbar-toggle {
+    border-color: @bgHighlight;
+    &:hover, &:focus {
+      background-color: @bgHighlight; }
+    .icon-bar {
+      background-color: @colDefault; }}
+  .navbar-collapse,
+  .navbar-form {
+    border-color: @colDefault; }
+  .navbar-link {
+    color: @colDefault;
+    &:hover {
+      color: @colHighlight; }}}
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu {
+    > li > a {
+      color: @colDefault;
+      &:hover, &:focus {
+        color: @colHighlight; }}
+    > .active {
+      > a, > a:hover, > a:focus {
+        color: @colHighlight;
+        background-color: @bgHighlight; }}}
+}
+
 //== Tabs
 @nav-tabs-border-color : #ddd;
 @nav-tabs-link-hover-border-color : @gray-lighter;
