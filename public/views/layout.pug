@@ -10,11 +10,15 @@ head
   link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', text='text/css')
   link(href='../css/main.css', rel='stylesheet', type='text/css')
 header
-  .section
-    .container
-      .row
-        .col-lg
-          ul.nav.nav-tabs
+  .navbar.navbar-default
+    .container-fluid
+      .navbar-header
+        button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+          span(class="sr-only")
+          span.icon-bar
+        a.navbar-brand(href="#")
+        .collapse.navbar-collapse
+          ul.nav.navbar-nav
             li
               a(href='/') Home
             li.dropdown
@@ -26,6 +30,22 @@ header
                   a(href='documents') All Documents
             li
               a(href='visiting') Visiting
+  //- .section
+  //-   .container
+  //-     .row
+  //-       .col-lg
+  //-         ul.nav.nav-tabs
+  //-           li
+  //-             a(href='/') Home
+  //-           li.dropdown
+  //-             a.dropdown-toggle(data-toggle='dropdown', href='#') Documents
+  //-             ul.dropdown-menu
+  //-               li
+  //-                 a(href='documents#featured') Featured Documents
+  //-               li
+  //-                 a(href='documents') All Documents
+  //-           li
+  //-             a(href='visiting') Visiting
 block bodyContent
   footer
     .section
