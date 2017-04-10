@@ -3,6 +3,11 @@ function initMap() {
         center: {lat:44.977753, lng:-93.265011},
         zoom: 3
      });
+    var oms = new OverlappingMarkerSpiderfier(map, { 
+        markersWontMove: true, 
+        markersWontHide: true,
+        basicFormatEvents: true
+    });
      var markerlist = {};
      $.getJSON("/apip/1"+"/location/",function(data){
         $.each(data, function(key, value){
@@ -24,7 +29,7 @@ function initMap() {
 
 function addListeners(map,mostrecentmarker,document){
     //var document = $.getJSON("/apid/")
-    mostrecentmarker.addListener('click',function(){
+    mostrecentmarker.addListener('spider_click',function(){
         map.setCenter(mostrecentmarker.getPosition());
         $(".documentview").html("<div class='col-xs-6'><h1>"+document["properties"]["location"]+"</h1></div><div class='col-xs-6'><h3>"+document["properties"]["etc"]+"</h3></div>");
     });
