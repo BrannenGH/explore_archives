@@ -61,23 +61,19 @@ export class Server{
     this.app.get("/visiting",function(req,res){
       res.render('visiting');
     });
-    this.app.get("/apip/:page/:sorting",function(req,res){
-      var listofdocuments = {"documents": []}
-      if (req.params.sorting=="location"){
-        req.app.database.Document.find(null,null,{sort: 'relevance featured docnumber'},function(err,files){
-          for (var i=0;i < req.params.page *10; i++){
-            listofdocuments["documents"].push(files[i]["_id"]);
+    this.app.get("/apip/:filters",function(req,res){
+      var listofdocuments = {"documents":[]}
+      req.app.database.Document.find(null,null,{sort: 'properties.machinelocation'},function(err,files){
+        for (var i=0;i < files.length; i++){
+          if (files[i-1] != undefined && files[i] != undefined && JSON.stringify(files[i-1]["properties"]["machinelocation"]) == JSON.stringify(files[i]["properties"]["machinelocation"])){
+            listofdocuments["documents"][listofdocuments["documents"].length-1]["Document"].push(files[i]["_id"]);
+          } else {
+            var stagedObject = {"Location":files[i]["properties"]["machinelocation"],"Document":[files[i]["_id"]]}
+            listofdocuments["documents"].push(stagedObject);
           }
+        }
         res.json(listofdocuments);
-       });
-      } else {
-        req.app.database.Document.find(null,null,{sort: 'relevance featured docnumber'},function(err,files){
-          for (var i=0;i < req.params.page *10; i++){
-            listofdocuments["documents"].push(files[i]["_id"]);
-          }
-          res.json(listofdocuments);
-        });
-      }
+      });
     });
     this.app.get("/apid/:documentid",function(req,res){
       var documentid = req.params.documentid;
@@ -116,7 +112,7 @@ class Database {
       relevance: Number,
       date: Array,
       //fill with JSON object will all optional parameters
-      properties: mongoose.Schema.Types.Mixed
+      properties: JSON
     });
     this.Document = mongoose.model('Document', DocumentSchema);
     //console.log(this.Document.find(function(err, data){console.log(data);}).sort('odcnumber'));

@@ -2,16 +2,15 @@ extends layout
 
 block bodyContent
   div.search
-    p.text-center Filtering Content will go here
+    //p.text-center Filtering Content will go here
     //script(type='text/javascript', src='../components/loaddocuments.js')
   //div(id="map", style="margin:auto;width: 1000px;height: 500px;")
   div(id="map", style="margin:25px;height: 500px;")
   div
-      .section
       .container
         .row
-          .col-md-12.center-block
-            ul.list-group.documentview
+          .col-xs-12.center-block
+            .documentview
   script(type='text/javascript', src='../components/createmap.js')
   script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?key=AIzaSyB2iKVLC3Sc-8QzJx5G9zZiMi_PTgZepfY&callback=initMap')
   script(type='text/javascript' src='http://jawj.github.io/OverlappingMarkerSpiderfier/bin/oms.min.js')
