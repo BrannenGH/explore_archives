@@ -21,7 +21,7 @@ var Server = (function () {
     };
     Server.prototype.config = function () {
         this.app.use(express.static(path.join(__dirname, "../../public")));
-        this.app.set('port', 3000);
+        this.app.set('port', 80);
         this.app.set('view engine', 'pug');
         this.app.set('views', path.join(__dirname, "../../public/views"));
         this.app.use(bodyParser.json());
@@ -36,17 +36,20 @@ var Server = (function () {
     };
     Server.prototype.routes = function () {
         var documenthandlers;
+        /*this.app.get("/",function(req,res){
+          res.render('index');
+        });
+       this.app.get("/documents/",function(req,res){
+          res.render('documents');
+        });
+       this.app.get("/about",function(req,res){
+          res.render('about');
+        });
+        this.app.get("/visiting",function(req,res){
+          res.render('visiting');
+        });*/
         this.app.get("/", function (req, res) {
-            res.render('index');
-        });
-        this.app.get("/documents/", function (req, res) {
             res.render('documents');
-        });
-        this.app.get("/about", function (req, res) {
-            res.render('about');
-        });
-        this.app.get("/visiting", function (req, res) {
-            res.render('visiting');
         });
         this.app.get("/apip/:filters", function (req, res) {
             var listofdocuments = { "documents": [] };
