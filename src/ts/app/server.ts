@@ -16,7 +16,7 @@ export class Server{
   public app : express.Application;
   public database : Database;
 
-  //create instance of sever class
+  //create instance of server class
   public static start(): Server {
     return new Server;
   }
@@ -49,7 +49,7 @@ export class Server{
   }
   public routes() {
     var documenthandlers :JSON;
-    /*this.app.get("/",function(req,res){
+    this.app.get("/",function(req,res){
       res.render('index');
     });
    this.app.get("/documents/",function(req,res){
@@ -58,12 +58,9 @@ export class Server{
    this.app.get("/about",function(req,res){
       res.render('about');
     });
-    this.app.get("/visiting",function(req,res){
-      res.render('visiting');
-    });*/
-    this.app.get("/",function(req,res){
+    /*this.app.get("/",function(req,res){
       res.render('documents');
-    });
+    });*/
     this.app.get("/apip/:filters",function(req,res){
       var listofdocuments = {"documents":[]}
       req.app.database.Document.find(null,null,{sort: 'properties.machinelocation'},function(err,files){

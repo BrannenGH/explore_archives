@@ -15,7 +15,7 @@ var Server = (function () {
         this.routes();
         this.app.database = this.database;
     }
-    //create instance of sever class
+    //create instance of server class
     Server.start = function () {
         return new Server;
     };
@@ -36,21 +36,18 @@ var Server = (function () {
     };
     Server.prototype.routes = function () {
         var documenthandlers;
-        /*this.app.get("/",function(req,res){
-          res.render('index');
-        });
-       this.app.get("/documents/",function(req,res){
-          res.render('documents');
-        });
-       this.app.get("/about",function(req,res){
-          res.render('about');
-        });
-        this.app.get("/visiting",function(req,res){
-          res.render('visiting');
-        });*/
         this.app.get("/", function (req, res) {
+            res.render('index');
+        });
+        this.app.get("/documents/", function (req, res) {
             res.render('documents');
         });
+        this.app.get("/about", function (req, res) {
+            res.render('about');
+        });
+        /*this.app.get("/",function(req,res){
+          res.render('documents');
+        });*/
         this.app.get("/apip/:filters", function (req, res) {
             var listofdocuments = { "documents": [] };
             req.app.database.Document.find(null, null, { sort: 'properties.machinelocation' }, function (err, files) {

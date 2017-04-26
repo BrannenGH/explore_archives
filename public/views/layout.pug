@@ -2,6 +2,7 @@ head
   meta(charset='utf-8')
   meta(name='viewport', content='width=device-width, initial-scale=1')
   //script(type='text/javascript', src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+  title Italian Immigrant Stories — The University of Minnesota
   script(type='text/javascript', src='https://code.jquery.com/jquery-3.1.1.min.js')
   script(type='text/javascript', src='http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
   script(type='text/javascript', src='https://unpkg.com/react@15.3.1/dist/react.js')
@@ -10,35 +11,43 @@ head
   link(href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', rel='stylesheet', text='text/css')
   link(href='../css/main.less', rel='stylesheet/less', type='text/css')
   link(href='https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.js' type='text/javascript')
-header
-  .navbar.navbar-default
-    .container-fluid
-      .navbar-header
-        button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
-          span(class="sr-only")
-          span.icon-bar
-        a.navbar-brand(href="#")
-        .collapse.navbar-collapse
-          ul.nav.navbar-nav
-            li
-                img(href="umn.edu" alt="The University of Minnesota" src='../css/MN_logo.png' style='max-width: 60px; margin-top: 10px;')
-            //li
-              a(href='/') Home
-            //li
-              a(href='/documents') Documents
-            //- li.dropdown
-            //-   a.dropdown-toggle(data-toggle='dropdown', href='#') Documents
-            //-   ul.dropdown-menu
-            //-     li
-            //-       a(href='documents#featured') Featured Documents
-            //-     li
-            //-       a(href='documents') All Documents
-            //li
-              a(href='/visiting') Visiting
-block bodyContent
-  footer
-    .section
-      .container
-        .row
-          .col-lg
-            p Work-in-progress
+body
+  .wrap
+    .navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+            span(class="sr-only")
+            span.icon-bar
+          a.navbar-brand(href="#")
+          .collapse.navbar-collapse
+            ul.nav.navbar-nav
+              li
+                  img(href="umn.edu" alt="The University of Minnesota" src='../css/MN_logo.png' style='max-width: 60px; margin-top: 10px;')
+              li
+                  p.navbar-text Italian Immigrant Stories
+              li
+                a(href='/') Home
+              li
+                a(href='/documents') Document Search
+              //- li.dropdown
+              //-   a.dropdown-toggle(data-toggle='dropdown', href='#') Documents
+              //-   ul.dropdown-menu
+              //-     li
+              //-       a(href='documents#featured') Featured Documents
+              //-     li
+              //-       a(href='documents') All Documents
+              li
+                a(href='/#visiting') Visiting
+              li
+                a(href='/about') About the Project
+  block bodyContent
+  .push
+  hr
+  .footer
+    .container
+      p.text-muted 
+        | A project from the 
+        a(href='https://cla.umn.edu/french-italian') department of French and Italian 
+        | at the 
+        a(href='https://umn.edu') University of Minnesota.
